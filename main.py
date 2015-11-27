@@ -92,13 +92,16 @@ def get_texts(soup):
         comments.append(aComment)
     return post(aPost, comments)
 
-
-#comment = soup.findAll("div", {"class" : "col-md-3"})
-#print(comment[0].text.replace(" ", "").replace("\n", ""))
-if __name__ == "main":
+if __name__ == '__main__':
+    #comment = soup.findAll("div", {"class" : "col-md-3"})
+    #print(comment[0].text.replace(" ", "").replace("\n", ""))
     opener = login_and_return_opener()
-    page = "https://bamboofo.rest/posts"
-    page = opener.open("https://bamboofo.rest/posts")
+    #page = "https://bamboofo.rest/posts"
+    #page = opener.open("https://bamboofo.rest/posts")
+    lists = get_new_posts(opener)
+    page_num = lists[0]
+    url = "https://bamboofo.rest/posts/" + page_num
+    page = opener.open(url)
     soup = bs(page, "html.parser")
     a = get_texts(soup)
     print (a)
