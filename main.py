@@ -41,6 +41,16 @@ def get_updated_posts(opener):
         links.append(post.attrs['href'].split("/")[-1])
     return links
 
+def get_all_posts(opener):
+    links = []
+    page = "https://bamboofo.rest/posts"
+    page = opener.open("https://bamboofo.rest/posts")
+    soup = bs(page, "html.parser")
+    updated_posts = soup.findAll("tr", { "class" : "row_type_" }) # get Updated posts
+    for post in updated_posts:
+        links.append(post.attrs['href'].split("/")[-1])
+    return links
+
 def get_post(opener, aLink):
     full_url = "https://bamboofo.rest/posts/" + aLink
     req = urllib.request.Request(full_url)
@@ -70,6 +80,12 @@ class post(object):
             self.body = body
 
     def __repr__(self):
+        return self.title
+
+    def __str__(self):
+        return self.title
+
+    def tostring(self):
         return self.title
 
 #print(soup)
